@@ -1,0 +1,26 @@
+- name: Install docker python package and create caddy container
+  hosts: region
+  strategy: free
+  tasks:
+    - name: Update pip
+      ansible.builtin.pip:
+        name: 
+          - pip
+        extra_args: --upgrade
+    - name: Install docker python package
+      ansible.builtin.pip:
+        name: 
+          - Cython<3
+          - pyyaml==5.4.1
+          - docker-compose
+        extra_args: --no-build-isolation --ignore-installed
+    - name: Copy compose file to region device
+      ansible.builtin.copy:
+        src: ~/.config/zrr-repos/zrr-compose/composes/caddy/docker-compose.yml
+        dest: ~/.config/zrr-repos/zrr-compose/composes/caddy/
+    - name: Create caddy container
+      community.docker.docker_compose:
+        remove_orphans: true
+        project_src: ~/.config/zrr-repos/zrr-compose/composes/caddy/
+        files: docker-compose.yml
+    

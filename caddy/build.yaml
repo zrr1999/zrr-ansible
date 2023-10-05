@@ -1,0 +1,15 @@
+
+- name: Create or update caddy container
+  hosts: region
+  strategy: free
+  tasks:
+    - name: Copy compose file to region device
+      ansible.builtin.copy:
+        src: ~/.config/zrr-repos/zrr-compose/composes/caddy
+        dest: ~/.config/zrr-repos/zrr-compose/composes/
+    - name: Create caddy container
+      community.docker.docker_compose:
+        remove_orphans: true
+        project_src: ~/.config/zrr-repos/zrr-compose/composes/caddy/
+        env_file: /etc/environment
+    

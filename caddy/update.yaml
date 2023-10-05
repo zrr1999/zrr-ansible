@@ -1,0 +1,24 @@
+
+- name: Copy Caddyfile to Cloud
+  hosts: cloud
+  tasks:
+    - name: Make directory
+      ansible.builtin.file:
+        path: /etc/caddy/
+        state: directory
+    - name: Copy Caddyfile to Cloud
+      ansible.builtin.copy:
+        src: Caddyfile.d/cloud.Caddyfile
+        dest: /etc/caddy/Caddyfile
+
+- name: Copy Caddyfile to Lab
+  hosts: lab
+  tasks:
+    - name: Make directory
+      ansible.builtin.file:
+        path: /etc/caddy/
+        state: directory
+    - name: Copy Caddyfile to Lab
+      ansible.builtin.copy:
+        src: Caddyfile.d/lab.Caddyfile
+        dest: /etc/caddy/Caddyfile

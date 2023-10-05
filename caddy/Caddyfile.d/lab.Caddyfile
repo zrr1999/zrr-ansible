@@ -1,0 +1,27 @@
+hass.lab.bone6.top {
+	reverse_proxy 192.168.1.10:8123
+	tls {
+		dns dnspod {$DNSPOD_ID},{$DNSPOD_TOKEN}
+	}
+}
+
+openwrt.lab.bone6.top {
+	reverse_proxy 192.168.1.2:8080
+	tls {
+		dns dnspod {$DNSPOD_ID},{$DNSPOD_TOKEN}
+	}
+}
+
+qinglong.lab.bone6.top {
+	reverse_proxy 192.168.1.102:5700
+	tls {
+		dns dnspod {$DNSPOD_ID},{$DNSPOD_TOKEN}
+	}
+}
+
+pve.lab.bone6.top {
+	reverse_proxy 192.168.1.5:8006
+	tls {
+		dns dnspod {$DNSPOD_ID},{$DNSPOD_TOKEN}
+	}
+}

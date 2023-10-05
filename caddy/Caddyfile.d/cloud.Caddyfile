@@ -1,0 +1,29 @@
+# Global Services
+headscale.bone6.top {
+	reverse_proxy localhost:8080
+}
+
+password.bone6.top {
+	encode gzip
+
+	# Uncomment to allow access to the admin interface only from local networks
+	# @insecureadmin {
+	#   not remote_ip 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8
+	#   path /admin*
+	# }
+	# redir @insecureadmin /
+
+	reverse_proxy /notifications/hub localhost:23012
+
+	# if located at a sub-path the reverse_proxy line will look like:
+	#   reverse_proxy /subpath/* <SERVER>:80
+	reverse_proxy localhost:20080 {
+		# Send the true remote IP to Rocket, so that vaultwarden can put this in the
+		# log, so that fail2ban can ban the correct IP.
+		header_up X-Real-IP 1.15.231.43
+	}
+}
+
+qinglong.bone6.top {
+	reverse_proxy localhost:5700
+}
